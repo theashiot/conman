@@ -1,10 +1,7 @@
 package com.ashiot.conmanadoc;
 
 import com.ashiot.conmanadoc.Content;
-/**
- * Hello world!
- *
- */
+
 public class ConManMain 
 {
     public static void main( String[] args )
