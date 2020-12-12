@@ -62,7 +62,7 @@ public class Assemble {
 				else if (inputLine.contains("= My")) {
 					stringBuffer.append("= "+this.assemblyName).append("\n");
 				}
-				else if (inputLine.contains(":context:")) {
+				else if (inputLine.contains(":context: assembly-keyword")) {
 					stringBuffer.append(":context: "+this.assemblyContext).append("\n");
 				}
 				else {

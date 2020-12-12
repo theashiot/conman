@@ -42,7 +42,7 @@ public class ConManMain
 				break;
 			case "help":
 				System.out.println ("Usage:\n<command> <type> \"Module name\"");
-				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference moule");
+				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference module");
 				System.out.println ("\nOR <command> assembly \"Assembly name\" \"context\" (context is to define the assembly level context");
 				break;
 			default:
