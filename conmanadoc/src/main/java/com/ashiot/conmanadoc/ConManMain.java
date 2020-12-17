@@ -1,12 +1,13 @@
 package com.ashiot.conmanadoc;
 
 import com.ashiot.conmanadoc.Content;
-
+import com.ashiot.conmanadoc.ParseJson;
 
 public class ConManMain 
 {
     public static void main( String[] args )
     {
+    	/*
         System.out.println( "Hello World!" );
 		int run =  0;
 		Content content = new Content();
@@ -40,10 +41,10 @@ public class ConManMain
 		}
 		//System.out.println (args[0]);
 		//System.out.println (args[1]);
-		/*
+
 
 		content.initializeContent("proc", "My amazing module.java name 1");
-*/
-		}
+		} */
+    	ParseJson parseJson = new ParseJson();
     }
 }
