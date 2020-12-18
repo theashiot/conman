@@ -1,7 +1,7 @@
 package com.ashiot.conmanadoc;
 
 import com.ashiot.conmanadoc.Content;
-
+import com.ashiot.conmanadoc.Assemble;
 
 public class ConManMain 
 {
@@ -10,11 +10,14 @@ public class ConManMain
         System.out.println( "Hello World!" );
 		int run =  0;
 		Content content = new Content();
+		Assemble assembly = new Assemble();
+		String context;
 		if (args.length == 0)
 		{
 			System.out.println ("Incorrect input");
 			System.out.println ("Usage:\n<command> <type> \"Module name\"");
 			System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference moule");
+			System.out.println ("OR <command> assembly \"Assembly name\" \"context\" (context is to define the assembly level context");
 		}
 		else {
 				
@@ -29,14 +32,24 @@ public class ConManMain
 			case "ref" : 
 				content.initializeContent("ref", args[1]);
 				break;
+			case "assembly" :
+				if (args.length == 2)
+					context = args[1];
+				else
+					context = args[2];
+				
+				assembly.initializeAssembly(args[1], context);
+				break;
 			case "help":
 				System.out.println ("Usage:\n<command> <type> \"Module name\"");
-				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference moule");
+				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference module");
+				System.out.println ("\nOR <command> assembly \"Assembly name\" \"context\" (context is to define the assembly level context");
 				break;
 			default:
 				System.out.println ("Incorrect input");
 				System.out.println ("Usage:\n<command> <type> \"Module name\"");
-				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference moule");
+				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference module");
+				System.out.println ("OR <command> assembly \"Assembly name\" \"context\" (context is to define the assembly level context");
 		}
 		//System.out.println (args[0]);
 		//System.out.println (args[1]);
