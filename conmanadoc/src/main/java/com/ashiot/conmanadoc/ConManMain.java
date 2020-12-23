@@ -1,7 +1,7 @@
 package com.ashiot.conmanadoc;
 
 import com.ashiot.conmanadoc.Content;
-import com.ashiot.conmanadoc.ParseJson;
+import com.ashiot.conmanadoc.ContentFromTemplate;
 
 public class ConManMain 
 {
@@ -45,6 +45,33 @@ public class ConManMain
 
 		content.initializeContent("proc", "My amazing module.java name 1");
 		} */
-    	ParseJson parseJson = new ParseJson();
+    	//ParseJson parseJson = new ParseJson();
+    	ContentFromTemplate content = null;
+    	if (args.length == 0)
+		{
+			System.out.println ("Incorrect input");
+			System.out.println ("Usage:\n<command> <type> \"Module name\"");
+			System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference moule");
+		}
+		else {
+    	switch (args[0])
+		{
+			case "con" : 
+				
+	
+			case  "proc": 
+				
+			case "ref" : 
+				content = new ContentFromTemplate(args[1],args[0]);
+				break;
+			case "help":
+			default:
+				System.out.println ("Incorrect input");
+				System.out.println ("Usage:\n<command> <type> \"Module name\"");
+				System.out.println ("type is one of:\ncon\t concept module\nproc\tprocedure module\nref\treference moule");
+		}
+    	
+    	content.getValuesFromTemplate();
+    }
     }
 }

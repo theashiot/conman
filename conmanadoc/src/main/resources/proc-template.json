@@ -1,0 +1,16 @@
+{
+"prefix" : "proc",
+"prefixSeperator" : "-",
+"wordSeperator" : "-",
+"postfixSeperator" : "_",
+"postfix" : "{context}",
+"fileExtension" : ".adoc",
+"fileNameFormat" : "{prefix}{prefixSeperator}{<stub>}{fileExtension}",
+"idFormat" : "{prefix}{prefixSeperator}{<stub>}{postfixSeperator}{postfix}",
+"head" : "// Module included in the following assemblies:\n//\n// <List assemblies here, each on a new line>\n{<id>}\n= {<moduleName>}\n\n",
+
+
+"body" : "[role=\"_abstract\"]\nWrite a short introductory paragraph that provides an overview of the module. Procedure modules should include  the steps that users perform and address user motivation.The text that immediately follows the `[role=\"_abstract\"]` tag is used for search metadata.\n\n.Prerequisites\n* A bulleted list of conditions that must be satisfied before the user starts following this module.\n* You can also link to other modules or assemblies the user must follow before starting this module.\n* Delete the section title and bullets if the module has no prerequisites.\n\n.Procedure\n. Start each step with an active verb.\n. Include one command or action for each step with the exception of simple follow-step, for example:\n.. Do this thing and then select *Next*.\n.. Do this other thing and then select *Next*.\n. Use an unnumbered bullet (*) if the procedure includes only one step.\n\n.Verification steps\n////\nDelete this section if it does not apply to your module. Provide the user with verification methods for the procedure, such as expected output or commands that confirm success or failure.\n////\n. Start each step with an active verb.\n. Include one command or action per step.\n. Use an unnumbered bullet (*) if the procedure includes only one step.\n\n",
+
+"foot" : "[role=\"_additional-resources\"]\n.Additional resources\n////\nOptional. Delete if not used.\n////\n* A bulleted list of links to other material closely related to the contents of the procedure module."
+}
