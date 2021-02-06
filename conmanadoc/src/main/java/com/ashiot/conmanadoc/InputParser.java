@@ -93,7 +93,7 @@ public class InputParser {
 		String optionsLine = "TYPE is one of:\ncon\t\t:\tuse for concept module\nproc\t\t:\tuse for procedure module\nref\t\t:\tuse for reference module\nassembly\t:\tuse for assembly\n";
 		String exampleLine = "Example: java -jar conman "+contentTypeArg+" con "+contentNameArg+" \"My new module\"\n";		
 		String optionalContextLine = "Optionally use "+contentContextArg+" with assembly to provide a custom assembly context\n";
-		String assemblyExampleLine = "Example: java -jar conman \""+contentTypeArg+" assembly "+contentNameArg+" \"My new assembly\" "+contentContextArg+" \"my custom context\"\n";
+		String assemblyExampleLine = "Example: java -jar conman "+contentTypeArg+" assembly "+contentNameArg+" \"My new assembly\" "+contentContextArg+" \"my custom context\"\n";
 		System.out.println (usageLine);
 		System.out.println(optionsLine);
 		System.out.println (exampleLine);
