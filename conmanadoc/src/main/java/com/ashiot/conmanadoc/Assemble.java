@@ -22,10 +22,27 @@ public class Assemble {
 		this.assemblyName = name;
 		//this.makeContent();
 		this.metadataFromName();
-		this.assemblyContext = keyword;
-		System.out.println(keyword);
+		this.assemblyContext = this.contextFromInputKeyword(keyword);
 		this.makeContent();
 
+	}
+	
+	private String contextFromInputKeyword (String keyword) {
+		String contextLower = keyword.toLowerCase();
+		StringBuffer stringBuffer = new StringBuffer();
+		for (char c : contextLower.toCharArray()) {
+			//ch = new Character (c)
+			if (!(Character.isLetter(c)) && !(Character.isDigit(c))) {
+				stringBuffer.append('-');
+			}
+			else {
+				stringBuffer.append(c);
+			}
+		}
+		if (stringBuffer.charAt(stringBuffer.length() -1) == '-' ) {
+			stringBuffer.deleteCharAt(stringBuffer.length() -1);
+		}
+		return stringBuffer.toString();
 	}
 	
 	private void makeContent()
@@ -35,6 +52,8 @@ public class Assemble {
 		BufferedReader bufferedReader;
 		String inputLine;
 		StringBuffer stringBuffer = new StringBuffer();
+		boolean insideComment = false;
+		
 		try {
 			url = new URL(this.assemblyURL);
 		
@@ -46,27 +65,39 @@ public class Assemble {
 					  new InputStreamReader(con.getInputStream()));
 			
 			while ((inputLine = bufferedReader.readLine()) != null) {
-				if (inputLine.contains("* file name:")) {
-			    	//System.out.println("* file name: "+this.contentFileName);
-					stringBuffer.append("* file name: "+this.assemblyFileName).append("\n");
+				if (inputLine.startsWith("////"))
+				{
+					if (insideComment == true) {
+						insideComment = false;
+					}
+					else
+						insideComment = true;
+					
 				}
-				else if (inputLine.contains("* ID:")) {
-					stringBuffer.append("* ID: "+this.assemblyID).append("\n");
-				}
-				else if (inputLine.contains("* Title:")) {
-					stringBuffer.append("* Title: "+this.assemblyName).append("\n");
-				}
-				else if (inputLine.contains("[id=")) {
-					stringBuffer.append(this.assemblyID).append("\n");
-				}
-				else if (inputLine.contains("= My")) {
-					stringBuffer.append("= "+this.assemblyName).append("\n");
-				}
-				else if (inputLine.contains(":context: assembly-keyword")) {
-					stringBuffer.append(":context: "+this.assemblyContext).append("\n");
-				}
-				else {
-					stringBuffer.append(inputLine).append("\n");
+				
+				else if (insideComment == false) {
+					if (inputLine.contains("* file name:")) {
+				    	//System.out.println("* file name: "+this.contentFileName);
+						stringBuffer.append("* file name: "+this.assemblyFileName).append("\n");
+					}
+					else if (inputLine.contains("* ID:")) {
+						stringBuffer.append("* ID: "+this.assemblyID).append("\n");
+					}
+					else if (inputLine.contains("* Title:")) {
+						stringBuffer.append("* Title: "+this.assemblyName).append("\n");
+					}
+					else if (inputLine.contains("[id=")) {
+						stringBuffer.append(this.assemblyID).append("\n");
+					}
+					else if (inputLine.contains("= My")) {
+						stringBuffer.append("= "+this.assemblyName).append("\n");
+					}
+					else if (inputLine.contains(":context: assembly-keyword")) {
+						stringBuffer.append(":context: "+this.assemblyContext).append("\n");
+					}
+					else {
+						stringBuffer.append(inputLine).append("\n");
+					}
 				}
 			}
 			bufferedReader.close();
@@ -80,6 +111,7 @@ public class Assemble {
 		    writer.close();
 			
 		} catch (Exception e){
+			System.out.println ("lookks like you are disconnected");
 		} finally {
 			con.disconnect();
 			
@@ -101,6 +133,10 @@ public class Assemble {
 			else {
 				stringBuffer.append(c);
 			}
+		}
+		
+		if (stringBuffer.charAt(stringBuffer.length() -1) == '-' ) {
+			stringBuffer.deleteCharAt(stringBuffer.length() -1);
 		}
 		
 		this.assemblyID = "[id=\"assembly-"+stringBuffer.toString()+"_{context}\"]";

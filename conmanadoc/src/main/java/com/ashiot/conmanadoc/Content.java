@@ -40,6 +40,7 @@ public class Content {
 		HttpURLConnection con = null;
 		BufferedReader bufferedReader;
 		String inputLine;
+		boolean insideComment = false;
 		StringBuffer stringBuffer = new StringBuffer();
 		try {
 			switch (this.contentType)
@@ -63,30 +64,42 @@ public class Content {
 					  new InputStreamReader(con.getInputStream()));
 			
 			while ((inputLine = bufferedReader.readLine()) != null) {
-				if (inputLine.contains("* file name:")) {
-			    	//System.out.println("* file name: "+this.contentFileName);
-					stringBuffer.append("* file name: "+this.contentFileName).append("\n");
+				if (inputLine.startsWith("////"))
+				{
+					if (insideComment == true) {
+						insideComment = false;
+					}
+					else
+						insideComment = true;
+					
 				}
-				else if (inputLine.contains("* ID:")) {
-					stringBuffer.append("* ID: "+this.contentID).append("\n");
-				}
-				else if (inputLine.contains("* Title:")) {
-					stringBuffer.append("* Title: "+this.contentName).append("\n");
-				}
-				else if (inputLine.contains("[id=")) {
-					stringBuffer.append(this.contentID).append("\n");
-				}
-				else if (inputLine.contains("= My")) {
-					stringBuffer.append("= "+this.contentName).append("\n");
-				}
-				else if (inputLine.contains("= Reference")) {
-					stringBuffer.append("= "+this.contentName).append("\n");
-				}
-				else if (inputLine.contains("= Doing one procedure")) {
-					stringBuffer.append("= "+this.contentName).append("\n");
-				}
-				else {
-					stringBuffer.append(inputLine).append("\n");
+				
+				else if (insideComment == false) {
+					if (inputLine.contains("* file name:")) {
+				    	//System.out.println("* file name: "+this.contentFileName);
+						stringBuffer.append("* file name: "+this.contentFileName).append("\n");
+					}
+					else if (inputLine.contains("* ID:")) {
+						stringBuffer.append("* ID: "+this.contentID).append("\n");
+					}
+					else if (inputLine.contains("* Title:")) {
+						stringBuffer.append("* Title: "+this.contentName).append("\n");
+					}
+					else if (inputLine.contains("[id=")) {
+						stringBuffer.append(this.contentID).append("\n");
+					}
+					else if (inputLine.contains("= My")) {
+						stringBuffer.append("= "+this.contentName).append("\n");
+					}
+					else if (inputLine.contains("= Reference")) {
+						stringBuffer.append("= "+this.contentName).append("\n");
+					}
+					else if (inputLine.contains("= Doing one procedure")) {
+						stringBuffer.append("= "+this.contentName).append("\n");
+					}
+					else {
+						stringBuffer.append(inputLine).append("\n");
+					}
 				}
 			}
 			bufferedReader.close();
@@ -100,6 +113,7 @@ public class Content {
 		    writer.close();
 			
 		} catch (Exception e){
+			System.out.println ("lookks like you are disconnected");
 		} finally {
 			con.disconnect();
 			
@@ -121,6 +135,10 @@ public class Content {
 			else {
 				stringBuffer.append(c);
 			}
+		}
+		
+		if (stringBuffer.charAt(stringBuffer.length() -1) == '-' ) {
+			stringBuffer.deleteCharAt(stringBuffer.length() -1);
 		}
 		
 		this.contentID = "[id=\""+this.contentType+"-"+stringBuffer.toString()+"_{context}\"]";
