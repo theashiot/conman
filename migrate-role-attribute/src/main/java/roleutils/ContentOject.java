@@ -9,6 +9,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ContentOject {
@@ -46,6 +47,7 @@ public class ContentOject {
 				        noOfFiles++;
 				        System.out.println(file.getName() + "\n");
 				        this.addRoleAbstractToFile(sourceDirectory + "/" + file.getName());
+				        this.addAdditionalResourcesToFile (sourceDirectory + "/" + file.getName());
 				 }
 				 
 			}
@@ -102,6 +104,8 @@ public class ContentOject {
             
             // System.out.println (stringBuffer.toString());
             
+            
+            
             contentFile = new File(fileName);
             contentFile.createNewFile();
             FileWriter writer = new FileWriter(contentFile);
@@ -109,6 +113,68 @@ public class ContentOject {
             writer.flush();
             writer.close();
             
+        } catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void addAdditionalResourcesToFile (String fileName) {
+		StringBuffer stringBuffer = new StringBuffer();
+		BufferedReader inputStream = null;
+		List<String> lines = new ArrayList<String>();
+		List<String> reverseLines = new ArrayList<String>();
+		
+		File contentFile;
+		
+		try {
+            inputStream = new BufferedReader(new FileReader(fileName));
+            int i = 0;
+            String l;
+            int found = 0;
+            
+            while ((l = inputStream.readLine()) != null) {
+           	 	lines.add (l);
+           	 	if (l.equals("[role=\"_additional-resources\"]")) {
+           	 		System.out.println ("role additional resources already present; skipping");
+           	 		return;
+           	 	}
+           	 	i++;
+           	 }
+            
+            inputStream.close();
+            
+            
+            
+           Collections.reverse(lines);
+            
+           for (String line : lines) {
+        	   reverseLines.add(line);
+        	   if (line.equals(".Additional resources"))
+        		   reverseLines.add("[role=\"_additional-resources\"]");      		   
+        	   
+            }
+           
+           Collections.reverse(reverseLines);
+           StringBuffer stringBuffer1 = new StringBuffer();
+           for (String line : reverseLines) {
+        	   stringBuffer1.append(line + "\n");
+           }
+            
+           //System.out.println (stringBuffer1.toString());
+            
+           
+            contentFile = new File(fileName);
+            contentFile.createNewFile();
+            FileWriter writer = new FileWriter(contentFile);
+            writer.write(stringBuffer1.toString());
+            writer.flush();
+            writer.close();
+           
         } catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
