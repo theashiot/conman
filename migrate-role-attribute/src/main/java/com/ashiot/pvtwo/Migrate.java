@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import roleutils.ContentOject;
+
 /**
  * Hello world!
  *
@@ -16,7 +18,8 @@ public class Migrate
 {
 	private static void addRoleAbstract (String fileName) 
 	{
-		 BufferedReader inputStream = null;
+		 
+		BufferedReader inputStream = null;
 		 PrintWriter outputStream = null;
 		 File contentFile;
 		 StringBuffer stringBuffer = new StringBuffer();
@@ -79,7 +82,8 @@ public class Migrate
         	 return;
          }
          else {
-        	 addRoleAbstract(args[0]);
+        	 ContentOject conObj = new ContentOject(args[0]);
+        	 //addRoleAbstract(args[0]);
          }
          
     }
