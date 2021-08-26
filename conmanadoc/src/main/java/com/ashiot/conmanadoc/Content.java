@@ -94,7 +94,7 @@ public class Content {
 					else if (inputLine.contains("= Reference")) {
 						stringBuffer.append("= "+this.contentName).append("\n");
 					}
-					else if (inputLine.contains("= Doing one procedure")) {
+					else if (inputLine.contains("= Doing procedure A")) {
 						stringBuffer.append("= "+this.contentName).append("\n");
 					}
 					else {
