@@ -1,0 +1,57 @@
+= Conman tool for modular documentation
+
+Use the `conman` tool to create modules and assemblies based on the latest modular documentation templates. For information about modular documentation, see link:https://redhat-documentation.github.io/modular-docs/[]. The templates are available at  link:https://github.com/redhat-documentation/modular-docs[].
+
+== How to use
+
+.Prerequisites
+
+* Java 8 or higher.
+* Maven.
++
+You can download Maven from link:https://maven.apache.org/download.cgi[].
+* Active internet connection.
++
+The tool always fetches the latest templates from the Git repository. At this time there is no caching or local fallback available for offline use.
+
+.Procedure
+
+. Either clone this repository, or download the zip and then unzip.
+
+. Navigate to the `conmanadoc` directory.  
+
+. Build the application using Maven.
++
+[source,options="nowrap"]
+----
+$ mvn clean package
+----
+
+. Navigate to the generated `target` directory.
+
+. Run the tool using the `java -jar` command.
++
+[source,options="nowrap"]
+----
+$ java -jar conmanadoc-0.0.1-SNAPSHOT.jar
+----
++
+The tool displays options and usage.
++
+----
+Usage:
+
+java -jar conman.jar --type <TYPE> --name <NAME> 
+
+TYPE is one of:
+con		:	use for concept module
+proc		:	use for procedure module
+ref		:	use for reference module
+assembly	:	use for assembly
+
+Example: java -jar conman --type con --name "My new module"
+
+Optionally use --context with assembly to provide a custom assembly context
+
+Example: java -jar conman --type assembly --name "My new assembly" --context "my custom context"
+----
